@@ -3,6 +3,7 @@ package br.com.woodriver.moviesbattleapi.application.service;
 import br.com.woodriver.moviesbattleapi.application.domain.Battle;
 import br.com.woodriver.moviesbattleapi.application.domain.Player;
 import br.com.woodriver.moviesbattleapi.application.exception.BattleAlreadyStartedException;
+import br.com.woodriver.moviesbattleapi.application.port.in.CurrentBattleUseCase;
 import br.com.woodriver.moviesbattleapi.application.port.in.StartBattleUseCase;
 import br.com.woodriver.moviesbattleapi.application.port.out.BattleRepositoryPort;
 import br.com.woodriver.moviesbattleapi.application.port.out.FileManagerPort;
@@ -11,7 +12,7 @@ import br.com.woodriver.moviesbattleapi.application.port.out.PlayerRepositoryPor
 import org.springframework.stereotype.Service;
 
 @Service
-public class BattleService implements StartBattleUseCase {
+public class BattleService implements StartBattleUseCase, CurrentBattleUseCase {
 
     private BattleRepositoryPort battleRepositoryPort;
     private PlayerRepositoryPort playerRepositoryPort;
@@ -30,7 +31,7 @@ public class BattleService implements StartBattleUseCase {
     }
 
     @Override
-    public void execute(Player player) {
+    public void executePost(Player player) {
         player.loadPlayerInformation(playerRepositoryPort);
 
         if (player.getBattleSession() == null) {
@@ -38,6 +39,17 @@ public class BattleService implements StartBattleUseCase {
             Battle battle = new Battle();
 
             battle.startBattle(battleRepositoryPort, movieClientPort, fileManagerPort);
+        } else {
+            throw new BattleAlreadyStartedException("Could not start battle because this player is already in battle.");
+        }
+    }
+
+    @Override
+    public Battle executeGet(Player player) {
+        player.loadPlayerInformation(playerRepositoryPort);
+
+        if (player.getBattleSession() != null) {
+            return player.getBattleSession();
         } else {
             throw new BattleAlreadyStartedException("Could not start battle because this player is already in battle.");
         }

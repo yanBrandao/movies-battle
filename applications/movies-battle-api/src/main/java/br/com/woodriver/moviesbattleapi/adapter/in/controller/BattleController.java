@@ -2,6 +2,7 @@ package br.com.woodriver.moviesbattleapi.adapter.in.controller;
 
 import br.com.woodriver.moviesbattleapi.adapter.in.api.BattleAPI;
 import br.com.woodriver.moviesbattleapi.application.domain.Player;
+import br.com.woodriver.moviesbattleapi.application.port.in.CurrentBattleUseCase;
 import br.com.woodriver.moviesbattleapi.application.port.in.StartBattleUseCase;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -12,21 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BattleController implements BattleAPI {
 
-    private StartBattleUseCase startBattleUseCase;
+    private final StartBattleUseCase startBattleUseCase;
+    private final CurrentBattleUseCase currentBattleUseCase;
 
-    public BattleController(StartBattleUseCase startBattleUseCase) {
+    public BattleController(StartBattleUseCase startBattleUseCase, CurrentBattleUseCase currentBattleUseCase) {
         this.startBattleUseCase = startBattleUseCase;
+        this.currentBattleUseCase = currentBattleUseCase;
     }
 
     @Override
     public void startBattle(String authorization) {
         String playerId = (String) getAllClaimsFromToken(authorization).get("user_id");
-        startBattleUseCase.execute(new Player(playerId));
+        startBattleUseCase.executePost(new Player(playerId));
     }
 
     @Override
     public void getCurrentPlayerBattle(String authorization) {
-
+        String playerId = (String) getAllClaimsFromToken(authorization).get("user_id");
+        Object returned = currentBattleUseCase.executeGet(new Player(playerId));
     }
 
     @Override

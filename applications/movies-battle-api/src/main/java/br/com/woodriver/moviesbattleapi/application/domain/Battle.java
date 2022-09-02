@@ -16,6 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Battle {
+    int id;
     int score = 0;
     int failures = 0;
     Pair<Movie, Movie> currentQuestion;
@@ -44,8 +45,9 @@ public class Battle {
 
     private Pair<Movie, Movie> generateNewMoviesPair(MovieClientPort movieClientPort, FileManagerPort fileManagerPort) {
         LinkedHashMap<String, String> movies = fileManagerPort.loadMovies();
-        Movie movieOne = movieClientPort.findMovieById(getRandomMovie(movies));
-        Movie movieTwo = movieClientPort.findMovieById("B");
+        Pair<String, String> moviesPair = getRandomMovie(movies);
+        Movie movieOne = movieClientPort.findMovieById(moviesPair.getFirst());
+        Movie movieTwo = movieClientPort.findMovieById(moviesPair.getSecond());
 
        return Pair.of(movieOne, movieTwo);
     }

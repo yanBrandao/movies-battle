@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,5 +29,4 @@ public class Player {
         name = loadPlayer.name;
         battleSession = loadPlayer.battleSession;
     }
-
 }

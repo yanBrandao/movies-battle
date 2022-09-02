@@ -18,7 +18,7 @@ public class PlayerFakeRepository implements PlayerRepositoryPort {
         if (Objects.equals(id, "1"))
             return new Player(
                 id, "Random Name", new Battle(
-                        0, 0, Pair.of(
+                        0, 0, 0, Pair.of(
                                 new Movie("A", "A volta dos que não foram","", "", "", BigDecimal.TEN),
                                 new Movie("B", "2 Carecas brigando por um pente","", "", "", BigDecimal.ONE)
                 ), new HashMap<>()
