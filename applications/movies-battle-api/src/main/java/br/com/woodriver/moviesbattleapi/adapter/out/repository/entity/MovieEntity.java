@@ -5,21 +5,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.List;
+import java.math.BigDecimal;
 
-@Entity(name = "Players")
-@Getter
-@Setter
+@Entity(name = "Movies")
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlayerEntity {
+@Getter
+@Setter
+public class MovieEntity {
     @Id
     String id;
     String name;
-    @OneToMany(cascade = CascadeType.ALL)
-    List<BattleEntity> battles;
+    String bannerURL;
+    String year;
+    String director;
+    BigDecimal rating;
 }

@@ -9,9 +9,11 @@ import org.springframework.data.util.Pair;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.HashMap;
 
-@Entity
+@Entity(name = "Battles")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,6 +25,8 @@ public class BattleEntity {
     int score = 0;
     int failures = 0;
     boolean isActive;
-//    Pair<Movie, Movie> currentQuestion;
-//    HashMap<Pair<Movie, Movie>, String> historyAnswer = new HashMap<>();
+    @ManyToOne
+    MovieEntity firstOption;
+    @ManyToOne
+    MovieEntity secondOption;
 }

@@ -1,10 +1,9 @@
 package br.com.woodriver.moviesbattleapi.adapter.out.client;
 
-import br.com.woodriver.moviesbattleapi.adapter.out.client.mapper.MovieMapper;
+import br.com.woodriver.moviesbattleapi.adapter.out.mapper.MovieMapper;
 import br.com.woodriver.moviesbattleapi.adapter.out.client.response.OMDBResponse;
 import br.com.woodriver.moviesbattleapi.application.domain.Movie;
 import br.com.woodriver.moviesbattleapi.application.port.out.MovieClientPort;
-import com.github.tomaslanger.chalk.Chalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

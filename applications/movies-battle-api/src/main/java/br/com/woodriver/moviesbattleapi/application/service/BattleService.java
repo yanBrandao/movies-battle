@@ -3,6 +3,7 @@ package br.com.woodriver.moviesbattleapi.application.service;
 import br.com.woodriver.moviesbattleapi.application.domain.Battle;
 import br.com.woodriver.moviesbattleapi.application.domain.Player;
 import br.com.woodriver.moviesbattleapi.application.exception.BattleAlreadyStartedException;
+import br.com.woodriver.moviesbattleapi.application.exception.PlayerWithoutBattleActiveException;
 import br.com.woodriver.moviesbattleapi.application.port.in.CurrentBattleUseCase;
 import br.com.woodriver.moviesbattleapi.application.port.in.StartBattleUseCase;
 import br.com.woodriver.moviesbattleapi.application.port.out.BattleRepositoryPort;
@@ -51,7 +52,7 @@ public class BattleService implements StartBattleUseCase, CurrentBattleUseCase {
         if (player.getBattleSession() != null) {
             return player.getBattleSession();
         } else {
-            throw new BattleAlreadyStartedException("Could not start battle because this player is already in battle.");
+            throw new PlayerWithoutBattleActiveException(String.format("This [player=%s] doesn't have battle active", player.getId()));
         }
     }
 }
