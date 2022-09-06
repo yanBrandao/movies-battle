@@ -19,16 +19,18 @@ public class Battle {
     int id;
     int score = 0;
     int failures = 0;
+    boolean isActive = false;
     Pair<Movie, Movie> currentQuestion;
     HashMap<Pair<Movie, Movie>, String> historyAnswer = new HashMap<>();
 
 
     public void startBattle(BattleRepositoryPort battleRepositoryPort,
                             MovieClientPort movieClientPort,
-                            FileManagerPort fileManagerPort) {
+                            FileManagerPort fileManagerPort,
+                            Player player) {
         currentQuestion = generateNewMoviesPair(movieClientPort, fileManagerPort);
 
-        battleRepositoryPort.save(this);
+        battleRepositoryPort.save(this, player);
     }
 
     void answerQuestion(Movie option, MovieClientPort movieClientPort, FileManagerPort fileManagerPort) {
@@ -62,4 +64,5 @@ public class Battle {
 
     private static final String CORRECT = "Correct Answer";
     private static final String INCORRECT = "Incorrect Answer";
+
 }

@@ -39,7 +39,7 @@ public class BattleService implements StartBattleUseCase, CurrentBattleUseCase {
 
             Battle battle = new Battle();
 
-            battle.startBattle(battleRepositoryPort, movieClientPort, fileManagerPort);
+            battle.startBattle(battleRepositoryPort, movieClientPort, fileManagerPort, player);
         } else {
             throw new BattleAlreadyStartedException("Could not start battle because this player is already in battle.");
         }
@@ -49,8 +49,8 @@ public class BattleService implements StartBattleUseCase, CurrentBattleUseCase {
     public Battle executeGet(Player player) {
         player.loadPlayerInformation(playerRepositoryPort);
 
-        if (player.getBattleSession() != null) {
-            return player.getBattleSession();
+        if (player.getActiveBattleSession() != null) {
+            return player.getActiveBattleSession();
         } else {
             throw new PlayerWithoutBattleActiveException(String.format("This [player=%s] doesn't have battle active", player.getId()));
         }

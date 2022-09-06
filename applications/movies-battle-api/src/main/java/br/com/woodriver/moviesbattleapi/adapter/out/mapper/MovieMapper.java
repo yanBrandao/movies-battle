@@ -19,6 +19,17 @@ public class MovieMapper {
         );
     }
 
+    public static Movie toDomain(MovieEntity entity) {
+        return new Movie(
+                entity.getId(),
+                entity.getName(),
+                entity.getBannerURL(),
+                entity.getYear(),
+                entity.getDirector(),
+                entity.getRating()
+        );
+    }
+
     public static MovieEntity toEntity(Movie movie) {
         return new MovieEntity(
                 movie.getId(),

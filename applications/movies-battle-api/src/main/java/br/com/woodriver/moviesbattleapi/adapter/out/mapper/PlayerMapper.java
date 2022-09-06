@@ -12,12 +12,20 @@ public class PlayerMapper {
         return new Player(
                 playerEntity.getId(),
                 playerEntity.getName(),
-                BattleMapper.toDomain(activeBattleSession(playerEntity.getBattles()))
+                playerEntity.getBattles().stream().map(BattleMapper::toDomain).toList()
         );
     }
 
     private static BattleEntity activeBattleSession(List<BattleEntity> battles) {
         Optional<BattleEntity> battle = battles.stream().findFirst().filter(BattleEntity::isActive);
         return battle.orElse(null);
+    }
+
+    public static PlayerEntity toEntity(Player player) {
+        return new PlayerEntity(
+                player.getId(),
+                player.getName(),
+                player.getBattleSession().stream().map(battle -> BattleMapper.toEntity(battle, player)).toList()
+        );
     }
 }

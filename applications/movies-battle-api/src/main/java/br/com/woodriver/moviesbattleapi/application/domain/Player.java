@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -16,10 +17,15 @@ public class Player {
 
     String id;
     String name;
-    Battle battleSession;
+    List<Battle> battleSession;
 
     public Player(String id) {
         this.id = id;
+    }
+
+    public Battle getActiveBattleSession() {
+        Optional<Battle> activeBattle = battleSession.stream().findFirst().filter(battle -> battle.isActive);
+        return activeBattle.orElse(null);
     }
 
 

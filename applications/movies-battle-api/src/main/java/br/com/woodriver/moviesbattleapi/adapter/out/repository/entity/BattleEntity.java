@@ -29,4 +29,6 @@ public class BattleEntity {
     MovieEntity firstOption;
     @ManyToOne
     MovieEntity secondOption;
+    @ManyToOne
+    PlayerEntity player;
 }

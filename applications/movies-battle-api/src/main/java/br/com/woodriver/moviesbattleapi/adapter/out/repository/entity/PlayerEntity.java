@@ -20,6 +20,6 @@ public class PlayerEntity {
     @Id
     String id;
     String name;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = )
     List<BattleEntity> battles;
 }
